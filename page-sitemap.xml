@@ -7,22 +7,22 @@
     </url>
     
     <url>
-        <loc>https://JasperZhangXY.github.io/tags/</loc>
-        <lastmod>2019-11-23T19:51:58.453Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
         <loc>https://JasperZhangXY.github.io/archive/</loc>
-        <lastmod>2019-11-23T19:51:58.374Z</lastmod>
+        <lastmod>2019-11-27T05:17:09.219Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
         <loc>https://JasperZhangXY.github.io/about/</loc>
-        <lastmod>2019-11-23T19:51:58.373Z</lastmod>
+        <lastmod>2019-11-27T05:15:06.474Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://JasperZhangXY.github.io/tags/</loc>
+        <lastmod>2019-11-23T19:51:58.453Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>

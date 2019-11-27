@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          [Hexo] Theme Jepson - 1900@ZhangXianyang | Blog
+          数据仓库中的linux那些事儿 - 1900@ZhangXianyang | Blog
         
     </title>
 
-    <link rel="canonical" href="https://JasperZhangXY.github.io/article/hexo-theme-jepson/">
+    <link rel="canonical" href="https://JasperZhangXY.github.io/article/大数据修行基础篇------Day03/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -88,14 +88,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Hexo" title="Hexo">Hexo</a>
+                              <a class="tag" href="/tags/#linux" title="linux">linux</a>
                             
                         </div>
-                        <h1>[Hexo] Theme Jepson</h1>
-                        <h2 class="subheading">This is hexo theme Demo.</h2>
+                        <h1>数据仓库中的linux那些事儿</h1>
+                        <h2 class="subheading">linux的基操中有趣的点。</h2>
                         <span class="meta">
                             Posted by ZhangXianyang on
-                            2015-07-10
+                            2018-07-14
                         </span>
                     </div>
                 
@@ -142,14 +142,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -212,64 +212,61 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <blockquote>
-<p>This Jepson theme created by <a href="http://www.ruozedata.com/" target="_blank" rel="noopener">Jepson</a> modified from the original Porter <a href="https://github.com/YenYuHsuan/hexo-theme-beantech" target="_blank" rel="noopener">YuHsuan</a></p>
-</blockquote>
-<h1 id="blog-demo">Blog Demo</h1>
-<p>ruozedata官网 : <a href="http://www.ruozedata.com/" target="_blank" rel="noopener">www.ruozedata.com</a></p>
-<p><img src="/img/article/ruozedata.png" alt="Theme Jepson"></p>
-<h1 id="install-hexo">Install Hexo</h1>
-<p>Install Node.js  and Git</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#For window</span><br><span class="line">Node.js https://nodejs.org/dist/v12.13.0/node-v12.13.0-x64.msi</span><br><span class="line">Git https://github.com/git-for-windows/git/releases/download/v2.24.0.windows.2/Git-2.24.0.2-64-bit.exe</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#For Mac</span><br><span class="line">brew install node</span><br><span class="line">brew install git</span><br></pre></td></tr></table></figure>
-<p>Install hexo</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>For more:https://hexo.io/zh-cn/index.html</span><br></pre></td></tr></table></figure>
-<h1 id="theme-usage">Theme Usage</h1>
-<h2 id="init">Init</h2>
-<hr>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/hackeruncle/hackeruncle-hexo.git ./hackeruncle-hexo</span><br><span class="line"><span class="built_in">cd</span> hackeruncle-hexo</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
-<h2 id="modify">Modify</h2>
-<hr>
-<p>Modify <code>_config.yml</code> file with your own info.<br>
-Especially the section:</p>
-<h3 id="deployment">Deployment</h3>
-<p>Replace to your own repo, the name is the same as github user name!</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="string">git@github.com:&lt;git</span> <span class="string">user</span> <span class="string">name&gt;/&lt;git</span> <span class="string">user</span> <span class="string">name&gt;.github.io.git</span></span><br><span class="line"><span class="attr">  branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
-<h3 id="sidebar-settings">Sidebar settings</h3>
-<p>Copy your avatar image to <code>&lt;root&gt;/img/</code> and modify the <code>_config.yml</code>:</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sidebar:</span> <span class="literal">true</span>    <span class="comment"># whether or not using Sidebar.</span></span><br><span class="line"><span class="attr">sidebar-about-description:</span> <span class="string">"&lt;your description&gt;"</span></span><br><span class="line"><span class="attr">sidebar-avatar:</span> <span class="string">img/&lt;your</span> <span class="string">avatar</span> <span class="string">path&gt;</span></span><br></pre></td></tr></table></figure>
-<p>and activate your personal widget you like</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">widgets:</span>         <span class="comment"># here are widget you can use, you can comment out</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">featured-tags</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">short-about</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">recent-posts</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">friends-blog</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">archive</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">category</span></span><br></pre></td></tr></table></figure>
-<p>if you want to add sidebar widget, please add at <code>layout/_widget</code>.</p>
-<h3 id="signature-setup">Signature Setup</h3>
-<p>Copy your signature image to <code>&lt;root&gt;/img/signature</code> and modify the <code>_config.yml</code>:</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">signature:</span> <span class="literal">true</span>   <span class="comment"># show signature</span></span><br><span class="line"><span class="attr">signature-img:</span> <span class="string">img/signature/&lt;your-signature-ID&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="go-to-top-icon-setup">Go to top icon Setup</h3>
-<p>My icon is using iron man, you can change to your own icon at <code>css/image</code>.</p>
-<h3 id="post-tag">Post tag</h3>
-<p>You can decide to show post tags or not.</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">home_posts_tag:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<h3 id="markdown-render">Markdown render</h3>
-<p>My markdown render engine plugin is <a href="https://github.com/celsomiranda/hexo-renderer-markdown-it" target="_blank" rel="noopener">hexo-renderer-markdown-it</a>.</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Markdown-it config</span></span><br><span class="line"><span class="comment">## Docs: https://github.com/celsomiranda/hexo-renderer-markdown-it/wiki</span></span><br><span class="line"><span class="attr">markdown:</span></span><br><span class="line"><span class="attr">  render:</span></span><br><span class="line"><span class="attr">    html:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    xhtmlOut:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">    breaks:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    linkify:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    typographer:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    quotes:</span> <span class="string">'“”‘’'</span></span><br></pre></td></tr></table></figure>
-<p>and if you want to change the header anchor ‘ℬ’, you can go to <code>layout/post.ejs</code> to change it.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span>(<span class="string">"https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        anchors.options = &#123;</span><br><span class="line">          visible: <span class="string">'hover'</span>,</span><br><span class="line">          placement: <span class="string">'left'</span>,</span><br><span class="line">          icon: ℬ <span class="comment">// this is the header anchor "unicode" icon</span></span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="hexo-basics">Hexo Basics</h2>
-<hr>
-<h3 id="push-hexo-file-to-github">Push hexo file to github:</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">'init'</span></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
-<h3 id="push-hexo-blog-html-to-local">Push hexo blog html to local :</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo generate &amp;&amp; hexo server</span><br></pre></td></tr></table></figure>
-<p>open web: <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a></p>
-<h3 id="push-hexo-blog-html-to-github">Push hexo blog html to github :</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo deploy</span><br></pre></td></tr></table></figure>
-<p>open web: <a href="https://hackeruncle.github.io" target="_blank" rel="noopener">https://hackeruncle.github.io</a></p>
-<h1 id="have-fun-_">Have fun ^_^</h1>
-<hr>
-<!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-<!-- Place this tag where you want the button to render. -->
-<p>Please <a class="github-button" href="https://github.com/hackeruncle/hackeruncle-hexo" data-icon="octicon-star" aria-label="Star Jepson/hackeruncle-hexo on GitHub" target="_blank" rel="noopener">Star</a> this Project if you like it! <a class="github-button" href="https://github.com/hackeruncle" aria-label="Follow @Jepson on GitHub" target="_blank" rel="noopener">Follow</a> would also be appreciated!<br>
-Peace!</p>
+                <h2 id="1用户用户组">1.用户用户组</h2>
+<p>查看session中存在的用户和组</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]# ll /usr/sbin/user*</span><br><span class="line">-rwxr-x--- 1 root root 118192 Nov  6  2016 /usr/sbin/useradd</span><br><span class="line">-rwxr-x--- 1 root root  80360 Nov  6  2016 /usr/sbin/userdel</span><br><span class="line">-rwxr-x--- 1 root root 113840 Nov  6  2016 /usr/sbin/usermod</span><br><span class="line">-rwsr-xr-x 1 root root  11296 Apr 13  2017 /usr/sbin/usernetctl</span><br><span class="line">[root@hadoop001 ~]# ll /usr/sbin/group*</span><br><span class="line">-rwxr-x--- 1 root root 65480 Nov  6  2016 /usr/sbin/groupadd</span><br><span class="line">-rwxr-x--- 1 root root 57016 Nov  6  2016 /usr/sbin/groupdel</span><br><span class="line">-rwxr-x--- 1 root root 57064 Nov  6  2016 /usr/sbin/groupmems</span><br><span class="line">-rwxr-x--- 1 root root 76424 Nov  6  2016 /usr/sbin/groupmod</span><br></pre></td></tr></table></figure>
+<p>添加用户  ==创建一个普通用户，默认创建这个名称的用户组ZXY，且设置这个用户主组ZXY，且创建/home/ZXY==</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]# useradd ZXY</span><br><span class="line">[root@hadoop001 ~]# id ZXY</span><br><span class="line">uid=1002(ZXY) gid=1002(ZXY) groups=1002(ZXY)</span><br></pre></td></tr></table></figure>
+<p>删除用户  这个用户虽被删除了，但是在home目录中依然能够查到该用户的信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 home]# userdel ZXY</span><br><span class="line">[root@hadoop001 home]# cat /etc/passwd | grep ZXY</span><br><span class="line">[root@hadoop001 home]# cat /etc/group | grep ZXY</span><br></pre></td></tr></table></figure>
+<p>添加ZXY用户到另一个组 bigdata</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ZXY]# groupadd bigdata</span><br><span class="line">[root@hadoop001 ZXY]# cat /etc/group | grep bigdata</span><br></pre></td></tr></table></figure>
+<p>设置密码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ZXY]# passwd ZXY</span><br></pre></td></tr></table></figure>
+<h2 id="2用户切换后的样式的丢失">2.用户切换后的样式的丢失</h2>
+<p>==(1)模拟切换用户样式的丢失==</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ZXY]# rm -rf .bash*  //*代表模糊匹配</span><br><span class="line">[root@hadoop001 ~]# su - ZXY</span><br><span class="line">Last login: Sat Nov 16 23:39:09 CST 2019 on pts/1</span><br><span class="line">-bash-4.2$ </span><br><span class="line">-bash-4.2$</span><br></pre></td></tr></table></figure>
+<p>==(2)修正样式==</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ZXY]# cp /etc/skel/.* /home/ZXY/</span><br><span class="line">[root@hadoop001 ZXY]# ll -a</span><br><span class="line">drwx------  2 ZXY ZXY  59 Nov 16 23:44 .</span><br><span class="line">drwxr-xr-x. 5 root  root   44 Nov 16 23:16 ..</span><br><span class="line">-rw-r--r--  1 root  root   18 Nov 16 23:44 .bash_logout</span><br><span class="line">-rw-r--r--  1 root  root  193 Nov 16 23:44 .bash_profile</span><br><span class="line">-rw-r--r--  1 root  root  231 Nov 16 23:44 .bashrc</span><br><span class="line">[root@hadoop001 ZXY]# chown ZXY:ZXY .bash*</span><br><span class="line">[root@hadoop001 ZXY]# ll -a</span><br><span class="line">drwx------  2 ZXY ZXY  59 Nov 16 23:44 .</span><br><span class="line">drwxr-xr-x. 5 root  root   44 Nov 16 23:16 ..</span><br><span class="line">-rw-r--r--  1 ZXY  ZXY   18 Nov 16 23:44 .bash_logout</span><br><span class="line">-rw-r--r--  1 ZXY  ZXY  193 Nov 16 23:44 .bash_profile</span><br><span class="line">-rw-r--r--  1 ZXY  ZXY  231 Nov 16 23:44 .bashrc</span><br></pre></td></tr></table></figure>
+<h2 id="3sudo命令-你值得拥有">3.sudo命令----你值得拥有</h2>
+<p>==普通用户获取root的最大权限==</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]# vi /etc/sudoers</span><br><span class="line">ZXY   ALL=(root)      NOPASSWD:ALL</span><br><span class="line">[root@hadoop001 ~]# su ZXY</span><br><span class="line">[ZXY@hadoop001 root]$ sudo ls -l</span><br><span class="line">total 4</span><br><span class="line">-rw-r--r-- 1 root root 18 Nov 16 23:38 rz.log</span><br><span class="line">[ZXY@hadoop001 root]$ ls -l</span><br><span class="line">ls: cannot open directory .: Permission denied</span><br><span class="line">[ZXY@hadoop001 root]$ cat zxy.log</span><br><span class="line">cat: rz.log: Permission denied</span><br><span class="line">[ZXY@hadoop001 root]$ </span><br><span class="line">[ZXY@hadoop001 root]$ </span><br><span class="line">[ZXY@hadoop001 root]$ sudo cat zxy.log</span><br><span class="line">Z X Y</span><br></pre></td></tr></table></figure>
+<h2 id="4用户无法登录-passwd文件">4.用户无法登录 passwd文件</h2>
+<p><strong>问题：</strong><br>
+/etc/passwd文件中,如果用户后面是下面高亮的这两种情况是无法登录的<br>
+ZXY:x 1002:1003::/home/ZXY:/==<strong>bin/false</strong>==<br>
+ZXY:x 1002:1003::/home/ZXY:/==<strong>sbin/nologin</strong>==</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]# su - ZXY</span><br></pre></td></tr></table></figure>
+<p>Last login: Sat Nov 16 23:48:52 CST 2019 on pts/0<br>
+==<strong>This account is currently not available.</strong>==</p>
+<p><strong>解决办法：</strong><br>
+CDH 很多的组件：<br>
+hdfs组件     hdfs用户<br>
+hbase组件  hbase用户<br>
+yarn组件     yarn用户<br>
+<strong>==对应的修改为bin/bash即可==</strong></p>
+<h2 id="5权限的那些事儿">5.权限的那些事儿</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]# ll</span><br><span class="line">total 4</span><br><span class="line">drwxr-xr-x 2 root root  6 Nov 16 23:15 ZXY</span><br><span class="line">-rw-r--r-- 1 root root 18 Nov 16 23:28 zxy.log</span><br><span class="line">r</span><br></pre></td></tr></table></figure>
+<p>: read 4<br>
+w:  write 2<br>
+x : 执行 1<br>
+-：没权限 0</p>
+<p>7=rwx<br>
+3=wx<br>
+5=rx</p>
+<p>rwx  第一组 7 代表文件或文件夹的<strong>用户root</strong>，读写执行<br>
+r-x   第二组 5 代表文件或文件夹的<strong>用户组root</strong>，读执行<br>
+r-x   第三组 5 代表<strong>其他组的所属用户</strong>对这个文件或文件夹的权限，读执行</p>
+<h2 id="6其他不得不说的命令">6.其他不得不说的命令</h2>
+<p>查看文件大小<br>
+文件：1) ll      2) du -sh zxy.log<br>
+文件夹：  du -sh ZXY<br>
+搜索: find<br>
+历史记录:history<br>
+查看进程:ps -ef<br>
+<strong>一个栗子</strong><br>
+某个大数据组件hadoop，部署在哪里？(*代表模糊匹配)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]# cd /usr/local/</span><br><span class="line">[root@hadoop001 local]# mkdir xxxhadoopxxx</span><br><span class="line">[root@hadoop001 local]# mkdir hadoop</span><br><span class="line">[root@hadoop001 local]# find / -name '*hadoop*'</span><br><span class="line">[root@hadoop001 ~]# find /usr/local -name '*hadoop*'</span><br><span class="line">/usr/local/xxxhadoopxxx</span><br><span class="line">/usr/local/hadoop</span><br></pre></td></tr></table></figure>
 
                 
 
@@ -278,9 +275,13 @@ Peace!</p>
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/article/ruozedata/" data-toggle="tooltip" data-placement="top" title="Join ruozedata if you have a dream">&larr; Previous Post</a>
+                            <a href="/article/大数据修行基础篇------Day04/" data-toggle="tooltip" data-placement="top" title="数据仓库中的linux那些事儿">&larr; Previous Post</a>
                         </li>
                     
+                    
+                        <li class="next">
+                            <a href="/article/大数据修行基础篇------Day02/" data-toggle="tooltip" data-placement="top" title="数据仓库中的linux那些事儿">Next Post &rarr;</a>
+                        </li>
                     
                 </ul>
 
@@ -329,7 +330,7 @@ Peace!</p>
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#blog-demo"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Blog Demo</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#install-hexo"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Install Hexo</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#theme-usage"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">Theme Usage</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#init"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">Init</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#modify"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">Modify</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#deployment"><span class="toc-nav-number">3.2.1.</span> <span class="toc-nav-text">Deployment</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#sidebar-settings"><span class="toc-nav-number">3.2.2.</span> <span class="toc-nav-text">Sidebar settings</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#signature-setup"><span class="toc-nav-number">3.2.3.</span> <span class="toc-nav-text">Signature Setup</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#go-to-top-icon-setup"><span class="toc-nav-number">3.2.4.</span> <span class="toc-nav-text">Go to top icon Setup</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#post-tag"><span class="toc-nav-number">3.2.5.</span> <span class="toc-nav-text">Post tag</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#markdown-render"><span class="toc-nav-number">3.2.6.</span> <span class="toc-nav-text">Markdown render</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#hexo-basics"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">Hexo Basics</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#push-hexo-file-to-github"><span class="toc-nav-number">3.3.1.</span> <span class="toc-nav-text">Push hexo file to github:</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#push-hexo-blog-html-to-local"><span class="toc-nav-number">3.3.2.</span> <span class="toc-nav-text">Push hexo blog html to local :</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#push-hexo-blog-html-to-github"><span class="toc-nav-number">3.3.3.</span> <span class="toc-nav-text">Push hexo blog html to github :</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#have-fun-_"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">Have fun ^_^</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1用户用户组"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1.&#x7528;&#x6237;&#x7528;&#x6237;&#x7EC4;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2用户切换后的样式的丢失"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2.&#x7528;&#x6237;&#x5207;&#x6362;&#x540E;&#x7684;&#x6837;&#x5F0F;&#x7684;&#x4E22;&#x5931;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3sudo命令-你值得拥有"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">3.sudo&#x547D;&#x4EE4;----&#x4F60;&#x503C;&#x5F97;&#x62E5;&#x6709;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4用户无法登录-passwd文件"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">4.&#x7528;&#x6237;&#x65E0;&#x6CD5;&#x767B;&#x5F55; passwd&#x6587;&#x4EF6;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5权限的那些事儿"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">5.&#x6743;&#x9650;&#x7684;&#x90A3;&#x4E9B;&#x4E8B;&#x513F;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#6其他不得不说的命令"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">6.&#x5176;&#x4ED6;&#x4E0D;&#x5F97;&#x4E0D;&#x8BF4;&#x7684;&#x547D;&#x4EE4;</span></a></li></ol>
         
         </div>
       </aside>
@@ -349,7 +350,7 @@ Peace!</p>
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Hexo" title="Hexo">Hexo</a>
+                          <a class="tag" href="/tags/#linux" title="linux">linux</a>
                         
                     </div>
                 </section>

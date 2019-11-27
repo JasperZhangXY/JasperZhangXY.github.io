@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          1900@ZhangXianyang | Blog
+          数据仓库数据仓库中mysql的那些事儿 - 1900@ZhangXianyang | Blog
         
     </title>
 
-    <link rel="canonical" href="https://JasperZhangXY.github.io/tags/ruozedata/">
+    <link rel="canonical" href="https://JasperZhangXY.github.io/article/大数据实习篇MySQL------Day05/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -71,8 +71,8 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/img/header_img/archives-widget.jpg')
-            /*page*/
+            background-image: url('/img/article_header/article_header.png')
+            /*post*/
         
     }
     
@@ -85,10 +85,18 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
-                    <div class="site-heading">
-                        <h1>1900@ZhangXianyangBlog</h1>
-                        <!--<hr class="small">-->
-                        <span class="subheading"></span>
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#MySQL" title="MySQL">MySQL</a>
+                            
+                        </div>
+                        <h1>数据仓库数据仓库中mysql的那些事儿</h1>
+                        <h2 class="subheading">Mysql的玩法和他的朋友圈。</h2>
+                        <span class="meta">
+                            Posted by ZhangXianyang on
+                            2018-07-17
+                        </span>
                     </div>
                 
 
@@ -134,14 +142,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -191,221 +199,199 @@
 
 
     <!-- Main Content -->
-    <!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
+    <!-- Modify by Yu-Hsuan Yen -->
 
-<!-- USE SIDEBAR -->
-    <!-- Post Container -->
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-            
-                
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 archive">
-            <!-- 归档列表 -->
-            
-            
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
-             <!-- 归档列表 -->
+                <h2 id="1后台执行脚本的整理">1.后台执行脚本的整理</h2>
+<h2 id="2rundeck的部署">2.rundeck的部署</h2>
+<h2 id="3crontab的部署面试题每隔10秒">3.crontab的部署(面试题每隔10秒)</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]<span class="comment"># crontab -l</span></span><br><span class="line">* * * * * /root/test1.sh &gt;&gt; /root/test1.log</span><br></pre></td></tr></table></figure>
+<pre><code>分 小时 日 月 周
+*/6 */1=*
+* 代表 每
+</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]<span class="comment"># vi test1.sh </span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">for</span>((i=1;i&lt;6;i++));</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	date</span><br><span class="line">	sleep 10s</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+<h2 id="4整理软连接-场景-坑">4.整理软连接 场景 坑</h2>
+<h2 id="5二进制部署mysql">5.二进制部署mysql</h2>
+<p>MySQL部署链接:<br>
+<a href="https://github.com/Hackeruncle/mysql" target="_blank" rel="noopener">MySQL工具包链接</a><br>
+<a href="https://github.com/Hackeruncle/MySQL/blob/master/MySQL%205.6.23%20Install.txt" target="_blank" rel="noopener">MySQL部署文档链接</a></p>
+<h2 id="6mysql的重新部署">6.mysql的重新部署</h2>
+<h2 id="7部署dbeaver并打通mysql">7.部署dbeaver并打通mysql</h2>
 
-            
-            <div class="one-tag-list">
-                <span class="fa fa-calendar-times-o listing-seperator" id="2015">
-                    <span class="tag-text">2015</span>
-                </span>
-                <ul>
                 
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <li >
-                    07-11
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    <a href="/article/ruozedata/" style="color: #0085a1">
-                        <span>
-                            Join ruozedata if you have a dream
-                        </span>
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </li>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <li >
-                    07-10
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    <a href="/article/hexo-theme-jepson/" style="color: #0085a1">
-                        <span>
-                            [Hexo] Theme Jepson
-                        </span>
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </li>
-                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/大数据实习篇MySQL------Day06/" data-toggle="tooltip" data-placement="top" title="数据仓库数据仓库中mysql的那些事儿">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/大数据修行基础篇------Day04/" data-toggle="tooltip" data-placement="top" title="数据仓库中的linux那些事儿">Next Post &rarr;</a>
+                        </li>
+                    
                 </ul>
-            </div>
-            
-
-
-        </div>
-    </div>
-</div>
-
-<style type="text/css">
-
-   @media (min-width: 992px) {
-   .archive {
-       margin-left: 8.33333333%;
-       padding-right: 26.333333%;
-   }
-}
-</style>
-
-<style type="text/css">
-   @media (min-width: 1200px){
-   .archive {
-   margin-left: 16.66666667%;
-   padding-right: 16.666667%;
-   }
-}
-</style>
-
 
                 <br>
 
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>                       
+                
                 <!-- require APlayer -->
                 
 
-                <!-- 如果开启评论功能 -->
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1后台执行脚本的整理"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1.&#x540E;&#x53F0;&#x6267;&#x884C;&#x811A;&#x672C;&#x7684;&#x6574;&#x7406;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2rundeck的部署"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2.rundeck&#x7684;&#x90E8;&#x7F72;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3crontab的部署面试题每隔10秒"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">3.crontab&#x7684;&#x90E8;&#x7F72;(&#x9762;&#x8BD5;&#x9898;&#x6BCF;&#x9694;10&#x79D2;)</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4整理软连接-场景-坑"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">4.&#x6574;&#x7406;&#x8F6F;&#x8FDE;&#x63A5; &#x573A;&#x666F; &#x5751;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5二进制部署mysql"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">5.&#x4E8C;&#x8FDB;&#x5236;&#x90E8;&#x7F72;mysql</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#6mysql的重新部署"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">6.mysql&#x7684;&#x91CD;&#x65B0;&#x90E8;&#x7F72;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#7部署dbeaver并打通mysql"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">7.&#x90E8;&#x7F72;dbeaver&#x5E76;&#x6253;&#x901A;mysql</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#MySQL" title="MySQL">MySQL</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://JasperZhangXY.github.io/" target="_blank">一个栗子</a></li>
+                    
+                </ul>
                 
             </div>
-
-          <!-- Sidebar Container -->
-<div class="
-    col-lg-3 col-lg-offset-0
-    col-md-3 col-md-offset-0
-    col-sm-12
-    col-xs-12
-    sidebar-container
-">
-    
-        <!-- Featured Tags -->
-
-<section>
-    <!-- no hr -->
-    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-    <div class="tags">
-        
-            
-            <a href="/tags/#ruozedata" title="ruozedata" rel="1">ruozedata</a>
-            
-        
-            
-            <a href="/tags/#Hexo" title="Hexo" rel="1">Hexo</a>
-            
-        
+        </div>
     </div>
-</section>
+</article>
 
-        <hr>
-    
-        <!-- Short About -->
-<section class="visible-md visible-lg">
-    <h5><a href="/about/">ABOUT ME</a></h5>
-    <div class="short-about">
 
-        
-            <img id = "avatar_pic" src="/img/avatar/zxy.jpg" />
-        
 
-        
-            <p>不以物喜，不以己悲！</p>
-        
 
-        <!-- SNS Link -->
-        <ul class="list-inline">
-            
-            
-            
 
-            
 
-            
 
-            
-                <li>
-                    <a target="_blank"  href="https://github.com/JasperZhangXY">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-            
-            
-            
-        </ul>
-    </div>
-</section>
 
-        <hr>
-    
-        
-  <h5>RECENT POSTS</h3>
-  <div class="widget">
-    <ul>
-      
-        <li>
-          <a href="/article/ruozedata/">Join ruozedata if you have a dream</a>
-        </li>
-      
-        <li>
-          <a href="/article/hexo-theme-jepson/">[Hexo] Theme Jepson</a>
-        </li>
-      
-    </ul>
-  </div>
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'rz'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
 
-        <hr>
-    
-        <!-- Friends Blog -->
 
-<h5>FRIENDS</h5>
-<ul class="list-inline">
-
-    
-        <li><a href="https://JasperZhangXY.github.io/" target="_blank">一个栗子</a></li>
-    
-</ul>
-
-        <hr>
-    
-        
-    <h5>ARCHIVES</h5>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li></ul>
-    </div>
-
-        <hr>
-    
-</div>
-
-        
-    </div>
-</div>
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+        })  
+</script>
 
 
     <!-- Footer -->

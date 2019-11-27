@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          数据仓库中的linux那些事儿 - 1900@ZhangXianyang | Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://JasperZhangXY.github.io/article/大数据修行基础篇------Day04/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/article_header/article_header.png')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#linux" title="linux">linux</a>
+                            
+                        </div>
+                        <h1>数据仓库中的linux那些事儿</h1>
+                        <h2 class="subheading">linux的基操中有趣的点。</h2>
+                        <span class="meta">
+                            Posted by ZhangXianyang on
+                            2018-07-15
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1900@ZhangXianyangBlog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="1vi命令的整理">1.vi命令的整理</h2>
+<h3 id="11-粘贴的坑">1.1 粘贴的坑：</h3>
+<pre><code>必须在i键进入编辑格式后，在进行目标内容的粘贴，不然会有内容的缺失
+</code></pre>
+<h3 id="12-error的定位问题">1.2 Error的定位问题</h3>
+<pre><code>cat xxx.log | grep -C 10 ERROR &gt; error.log
+进入尾行模式：/关键字 回车自动匹配 按N键寻找下一个
+</code></pre>
+<h3 id="13-设置行号">1.3 设置行号</h3>
+<pre><code>进入尾行模式：
+set  nu(设置行号)
+set  nonu(取消行号)
+</code></pre>
+<h3 id="14-对文件内容的相应操作">1.4 对文件内容的相应操作</h3>
+<pre><code>cat /dev/null &gt; xxx.log  置空一个文件
+命令行模式常见快捷键：
+(1) dd  删除当前行
+(2) dG 删除光标当前及以下所有行  
+(3) ndd  删除光标当前及以下的n行
+
+(1) gg  跳转到第一行的第一个字母
+(2) G   跳转到最后一行的第一个字母
+(3) shift+$  转到行尾
+生产中 gg + dG 
+</code></pre>
+<h2 id="2系统命令">2.系统命令</h2>
+<h3 id="21-磁盘">2.1 磁盘</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]# df -h</span><br></pre></td></tr></table></figure>
+<h3 id="22-内存">2.2 内存</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]# free -m</span><br></pre></td></tr></table></figure>
+<h3 id="23-负载">2.3 负载</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]# top</span><br><span class="line">top - 21:47:07 up 1 day, 11:24, 2 users,load average: 0.00, 0.01, 0.05</span><br><span class="line">Tasks: 125 total, 1 running, 124 sleeping, 0 stopped, 0 zombie</span><br><span class="line"><span class="meta">%</span>Cpu(s): 0.3us, 0.3sy, 0.0 ni, 99.5 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st</span><br><span class="line">KiB Mem : 16268360 total,3686432 free,4804424 used, 7777504 buff/cache</span><br><span class="line">KiB Swap: 0 total, 0 free,  0 used. 11099012 avail Mem</span><br></pre></td></tr></table></figure>
+<pre><code>load average:  0.00, 0.01, 0.05
+		       1min  5min  10min
+经验值 不要超过10 否则认为此物理服务器 IDC机房
+</code></pre>
+<h2 id="3进程-端口号的整理">3.进程 端口号的整理</h2>
+<h3 id="31-进程">3.1 进程</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]# ps -ef|grep ssh | grep -v grep</span><br><span class="line">root        762     1  0 Nov16 ?       00:00:02 /usr/sbin/sshd -D</span><br><span class="line">root      74886    762  0 20:58 ?      00:00:00 sshd: root@pts/0,pts/1</span><br><span class="line">进程用户   进程的pid 父id</span><br></pre></td></tr></table></figure>
+<h3 id="32-端口号">3.2 端口号</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]<span class="comment"># netstat -nlp |grep 762</span></span><br><span class="line">tcp        0      0 0.0.0.0:22    0.0.0.0:*       LISTEN      762/sshd            </span><br><span class="line">tcp6       0      0 :::22         :::*            LISTEN      762/sshd            </span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     15762    1032/AgentMonitor    /dev/sd_sdmanager_command</span><br><span class="line">[root@hadoop001 ~]<span class="comment"># netstat -nlp |grep ssh</span></span><br><span class="line">tcp        0      0 0.0.0.0:22    0.0.0.0:*       LISTEN      762/sshd            </span><br><span class="line">tcp6       0      0 :::22         :::*            LISTEN      762/sshd</span><br></pre></td></tr></table></figure>
+<h3 id="33-安装服务打开web">3.3 安装服务，打开web</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]<span class="comment"># yum install http</span></span><br><span class="line">//下面两句话不同的版本选择不同的执行方式</span><br><span class="line">[root@hadoop001 ~]<span class="comment"># service httpd start  </span></span><br><span class="line">[root@hadoop001 ~]<span class="comment"># systemctl start httpd</span></span><br><span class="line">[root@hadoop001 ~]<span class="comment"># systemctl status httpd</span></span><br></pre></td></tr></table></figure>
+<pre><code>service httpd start      centos6.x 7.x
+systemctl start httpd    centos7.x
+</code></pre>
+<h2 id="4连接拒绝权限受限的整理">4.连接拒绝(权限受限)的整理</h2>
+<p>**问题：**在centos部署大数据组件的时候，发现==Connection refused==<br>
+<strong>解决办法：</strong><br>
+(1) ping ip   --------测试 ip<br>
+(2) telnet ip port  -----------测试ip和端口号<br>
+<strong>部署telnet命令：</strong><br>
+(1) windows 需要安装telnet<br>
+(2) linux</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]<span class="comment"># yum install -y telnet</span></span><br><span class="line">[root@hadoop001 ~]<span class="comment"># which telnet </span></span><br><span class="line">/usr/bin/telnet</span><br><span class="line">[root@hadoop001 ~]<span class="comment"># telnet 192.168.137.130 80</span></span><br><span class="line">Trying 192.168.137.130...</span><br><span class="line">Connected to 192.168.137.130.</span><br></pre></td></tr></table></figure>
+<p>这里80是前面http的端口号</p>
+<h2 id="5高危命令的整理">5.高危命令的整理</h2>
+<p>(1) rm -rf /<br>
+==好的习惯==<br>
+(2) vi 生产配置文件 100行 保存 -------- cp xxx.xml xxx.xml20191117<br>
+(3) ps 进程 xxx，top命令查询夯住的 / 删除xxx进程</p>
+<ul>
+<li>kill -9 进程pid</li>
+<li>kill -9 进程pid 进程pid 进程pid(杀死多个进程)</li>
+<li>kill -9 $(pgrep -f 匹配关键词)</li>
+</ul>
+<p>==杀进程之前，先ps 找到相关的进程，搞清楚，哪些是你要杀的，不然造成生产事故==</p>
+<h2 id="6常用的weget-yum-rpm-压缩">6.常用的weget yum rpm 压缩</h2>
+<h3 id="61-yum相关玩法">6.1 yum相关玩法</h3>
+<pre><code>yum search xxx
+yum install -y xxx-yyy
+yum remove xxx-yyy
+</code></pre>
+<h3 id="62-weget相关玩法">6.2 weget相关玩法</h3>
+<pre><code>wget http://archive.cloudera.com/cdh5/cdh/5/hadoop-2.6.0-cdh5.16.2.tar.gz
+</code></pre>
+<h3 id="63-rpm相关玩法">6.3 rpm相关玩法</h3>
+<pre><code>rpm -e --nodeps XXX   --nodes  不校验，直接删除
+rpm -qa | grep http   查看当前安装的所有http文件
+</code></pre>
+<h3 id="64-压缩的玩法">6.4 压缩的玩法</h3>
+<pre><code>unzip rundeck.zip
+大数据组件的压缩包几乎都是后缀 tar.gz
+tar -xzvf hadoop-2.6.0-cdh5.16.2.tar.gz 解压一个tar包
+tar -czvf hadoop-2.6.0-cdh5.16.2.tar.gz 打包压缩一个文件
+</code></pre>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/大数据实习篇MySQL------Day05/" data-toggle="tooltip" data-placement="top" title="数据仓库数据仓库中mysql的那些事儿">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/大数据修行基础篇------Day03/" data-toggle="tooltip" data-placement="top" title="数据仓库中的linux那些事儿">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1vi命令的整理"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1.vi&#x547D;&#x4EE4;&#x7684;&#x6574;&#x7406;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#11-粘贴的坑"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">1.1 &#x7C98;&#x8D34;&#x7684;&#x5751;&#xFF1A;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#12-error的定位问题"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">1.2 Error&#x7684;&#x5B9A;&#x4F4D;&#x95EE;&#x9898;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#13-设置行号"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">1.3 &#x8BBE;&#x7F6E;&#x884C;&#x53F7;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#14-对文件内容的相应操作"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">1.4 &#x5BF9;&#x6587;&#x4EF6;&#x5185;&#x5BB9;&#x7684;&#x76F8;&#x5E94;&#x64CD;&#x4F5C;</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2系统命令"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2.&#x7CFB;&#x7EDF;&#x547D;&#x4EE4;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#21-磁盘"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">2.1 &#x78C1;&#x76D8;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#22-内存"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">2.2 &#x5185;&#x5B58;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#23-负载"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">2.3 &#x8D1F;&#x8F7D;</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3进程-端口号的整理"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">3.&#x8FDB;&#x7A0B; &#x7AEF;&#x53E3;&#x53F7;&#x7684;&#x6574;&#x7406;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#31-进程"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">3.1 &#x8FDB;&#x7A0B;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#32-端口号"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">3.2 &#x7AEF;&#x53E3;&#x53F7;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#33-安装服务打开web"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">3.3 &#x5B89;&#x88C5;&#x670D;&#x52A1;&#xFF0C;&#x6253;&#x5F00;web</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4连接拒绝权限受限的整理"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">4.&#x8FDE;&#x63A5;&#x62D2;&#x7EDD;(&#x6743;&#x9650;&#x53D7;&#x9650;)&#x7684;&#x6574;&#x7406;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5高危命令的整理"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">5.&#x9AD8;&#x5371;&#x547D;&#x4EE4;&#x7684;&#x6574;&#x7406;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#6常用的weget-yum-rpm-压缩"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">6.&#x5E38;&#x7528;&#x7684;weget yum rpm &#x538B;&#x7F29;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#61-yum相关玩法"><span class="toc-nav-number">6.1.</span> <span class="toc-nav-text">6.1 yum&#x76F8;&#x5173;&#x73A9;&#x6CD5;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#62-weget相关玩法"><span class="toc-nav-number">6.2.</span> <span class="toc-nav-text">6.2 weget&#x76F8;&#x5173;&#x73A9;&#x6CD5;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#63-rpm相关玩法"><span class="toc-nav-number">6.3.</span> <span class="toc-nav-text">6.3 rpm&#x76F8;&#x5173;&#x73A9;&#x6CD5;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#64-压缩的玩法"><span class="toc-nav-number">6.4.</span> <span class="toc-nav-text">6.4 &#x538B;&#x7F29;&#x7684;&#x73A9;&#x6CD5;</span></a></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#linux" title="linux">linux</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://JasperZhangXY.github.io/" target="_blank">一个栗子</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'rz'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+        })  
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/JasperZhangXY">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ZhangXianyang 2019 
+                    By <a href="http://www.ruozedata.com">若泽数据，企业在职</a> | BigData
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=ruozedata&repo=Bigdata&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://JasperZhangXY.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'xxx';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://JasperZhangXY.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

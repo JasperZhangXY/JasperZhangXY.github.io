@@ -2,15 +2,15 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>https://JasperZhangXY.github.io/tags/Hexo/</loc>
-        <lastmod>2019-11-23T19:51:58.359Z</lastmod>
+        <loc>https://JasperZhangXY.github.io/tags/linux/</loc>
+        <lastmod>2019-11-27T06:18:55.375Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://JasperZhangXY.github.io/tags/ruozedata/</loc>
-        <lastmod>2019-11-23T19:51:58.373Z</lastmod>
+        <loc>https://JasperZhangXY.github.io/tags/MySQL/</loc>
+        <lastmod>2019-11-27T06:24:51.095Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
