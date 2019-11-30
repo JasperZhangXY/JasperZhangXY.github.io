@@ -14,7 +14,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          数据仓库数据仓库中mysql的那些事儿 - 1900@ZhangXianyang | Blog
+          大数据实习篇---数据仓库中mysql的那些事儿 - 1900@ZhangXianyang | Blog
         
     </title>
 
@@ -91,7 +91,7 @@
                               <a class="tag" href="/tags/#MySQL" title="MySQL">MySQL</a>
                             
                         </div>
-                        <h1>数据仓库数据仓库中mysql的那些事儿</h1>
+                        <h1>大数据实习篇---数据仓库中mysql的那些事儿</h1>
                         <h2 class="subheading">Mysql的玩法和他的朋友圈。</h2>
                         <span class="meta">
                             Posted by ZhangXianyang on
@@ -142,14 +142,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -223,8 +223,14 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]<span class="comment"># vi test1.sh </span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">for</span>((i=1;i&lt;6;i++));</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	date</span><br><span class="line">	sleep 10s</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
 <h2 id="3整理软连接-场景-坑">3.整理软连接 场景 坑</h2>
 <p>ln -s mysql-5.6.23-linux-glibc2.5-x86_64 mysql<br>
+chown -R mysqladmin:dba /usr/local/mysql<br>
 chown -R mysqladmin:dba /usr/local/mysql/*<br>
-==/*==很重要必须要加上，不然有可能不生效</p>
+chown -R mysqladmin:dba /usr/local/mysql-5.6.23-linux-glibc2.5-x86_64</p>
+<p>chmod -R 755 /usr/local/mysql<br>
+chmod -R 755 /usr/local/mysql/*<br>
+chmod -R 755 /usr/local/mysql-5.6.23-linux-glibc2.5-x86_64<br>
+/*很重要必须要加上，不然有可能不生效<br>
+软连接后和软连接前的文件都要设置权限，设置用户和主组</p>
 <h2 id="4二进制部署mysql">4.二进制部署mysql</h2>
 <p>MySQL部署链接:<br>
 <a href="https://github.com/Hackeruncle/mysql" target="_blank" rel="noopener">MySQL工具包链接</a><br>
@@ -250,7 +256,7 @@ G:\软件安全下载目录\JDK8_64\JDK8_64\bin(JDK的放置目录)<br>
 @表示允许这个机器来自ip的访问<br>
 %代表任意ip访问</p>
 <h2 id="7云主机hosts">7.云主机hosts</h2>
-<p>内网ip hostname(==/etc/hosts 中的第一行第二行不要动==)<br>
+<p>内网ip hostname(/etc/hosts 中的第一行第二行不要动)<br>
 windows访问，IDEA开发都是外网ip(虚拟的、重启后有可能会变，需要统一配置hostname)<br>
 C:\windows\System32\drivers\etc\hosts</p>
 
@@ -261,7 +267,7 @@ C:\windows\System32\drivers\etc\hosts</p>
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/article/大数据实习篇MySQL------Day06/" data-toggle="tooltip" data-placement="top" title="数据仓库数据仓库中mysql的那些事儿">&larr; Previous Post</a>
+                            <a href="/article/大数据实习篇MySQL------Day06/" data-toggle="tooltip" data-placement="top" title="大数据实习篇---数据仓库中mysql的那些事儿">&larr; Previous Post</a>
                         </li>
                     
                     
