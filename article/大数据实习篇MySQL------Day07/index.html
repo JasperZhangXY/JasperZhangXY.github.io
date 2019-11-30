@@ -142,14 +142,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -232,7 +232,60 @@
 </code></pre>
 <h2 id="总结按资排辈">总结（按资排辈）</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">select yyyyy from customdata</span><br><span class="line"><span class="built_in">where</span> xxx</span><br><span class="line">group by xxx having xxx </span><br><span class="line">order by xxx</span><br><span class="line"><span class="built_in">limit</span> xxx ;</span><br><span class="line">//这个顺序是不能交换的，中可以省略，辈分不能乱</span><br></pre></td></tr></table></figure>
-<h2 id="5-sql案例整理9句sql">5. sql案例整理(9句sql)</h2>
+<h2 id="5-sql案例整理8句sql">5. sql案例整理(8句sql)</h2>
+<ol>
+<li>查询出部门编号为30的所有员工的编号和姓名<br>
+deptno=30<br>
+select empno,ename from emp where deptno=30;</li>
+</ol>
+<p>2.找出部门编号为10中所有经理，和部门编号为20中所有销售员的详细资料。<br>
+select * from emp<br>
+where  (deptno=10 and job=‘MANAGER’)  or  (deptno=20 and job=‘SALESMAN’);</p>
+<p>3.查询所有员工详细信息，用工资降序排序，如果工资相同使用入职日期升序排序<br>
+select * from emp order by sal desc,hiredate asc;</p>
+<p>4.列出薪金大于1500的    各/每种工作及从事此工作的员工人数。count<br>
+select job,count(job) from emp where (sal+ifnull(comm,0))&gt; 1500<br>
+group by job ;<br>
+null字段 计算 比如相加  null+任何数值=null<br>
+select *,sal+comm,sal+ifnull(comm,0)  from emp;<br>
+select *from emp where (sal+comm)&gt; 1500;</p>
+<hr>
+<p>补:如果有最小聚合函数，可以使用having<br>
+select job,count(job) from emp<br>
+group by job having min(sal+ifnull(comm,0))&gt;1500;</p>
+<p>5.列出在销售部工作的员工的姓名，假定不知道销售部的部门编号。<br>
+select ename from emp<br>
+where deptno=<br>
+(select deptno from dept where dname=‘SALES’);</p>
+<p>6.查询每种工作的最高工资、最低工资、人数<br>
+select<br>
+max(sal+ifnull(comm,0)) as maxsal,<br>
+min(sal+ifnull(comm,0)) as minsal,<br>
+count(empno) cno<br>
+from emp<br>
+group by job;</p>
+<p>7.列出薪金 高于 公司平均薪金的所有员工号，员工姓名 ok，所在部门名称 no，上级领导 id，工资 ok ，工资等级 xxx<br>
+公司平均薪金<br>
+select<br>
+e.ename,<br>
+e.deptno,d.dname,<br>
+e.mgr,m.ename,<br>
+e.sal+ifnull(e.comm,0) as sal,<br>
+s.grade</p>
+<p>from emp e<br>
+left join dept d on e.deptno=d.deptno<br>
+left join emp m on e.mgr=m.empno<br>
+left join salgrade s on (e.sal+ifnull(e.comm,0)) between s.losal and s.hisal<br>
+where (e.sal+ifnull(e.comm,0)) &gt; (select avg(sal+ifnull(comm,0)) from emp);</p>
+<p>8.列出薪金 高于 在部门30工作的所有员工 all max /任意一个 any min的薪金的员工姓名和薪金、部门名称。<br>
+select<br>
+e.ename,<br>
+e.sal+ifnull(e.comm,0)<br>
+e.deptno,<br>
+d.dname<br>
+from emp e, dept  d<br>
+where e.deptno =d.deptno<br>
+and sal+ifnull(comm,0) &gt; any(select sal+ifnull(comm,0) from emp where deptno=30);</p>
 <h2 id="6-null字段的小知识点整理">6. NULL字段的小知识点整理</h2>
 <p>应用场景：<br>
 大数据中进来两张表table1和table2<br>
@@ -301,7 +354,7 @@ table1中有数据：<br>
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-整理-sql的where-各种条件"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1. &#x6574;&#x7406; sql&#x7684;where &#x5404;&#x79CD;&#x6761;&#x4EF6;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-sql中group的整理"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2. sql&#x4E2D;group&#x7684;&#x6574;&#x7406;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3-sql中join的整理"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">3. sql&#x4E2D;join&#x7684;&#x6574;&#x7406;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4-聚合函数"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">4. &#x805A;&#x5408;&#x51FD;&#x6570;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#总结按资排辈"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">&#x603B;&#x7ED3;&#xFF08;&#x6309;&#x8D44;&#x6392;&#x8F88;&#xFF09;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-sql案例整理9句sql"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">5. sql&#x6848;&#x4F8B;&#x6574;&#x7406;(9&#x53E5;sql)</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#6-null字段的小知识点整理"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">6. NULL&#x5B57;&#x6BB5;&#x7684;&#x5C0F;&#x77E5;&#x8BC6;&#x70B9;&#x6574;&#x7406;</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-整理-sql的where-各种条件"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1. &#x6574;&#x7406; sql&#x7684;where &#x5404;&#x79CD;&#x6761;&#x4EF6;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-sql中group的整理"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2. sql&#x4E2D;group&#x7684;&#x6574;&#x7406;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3-sql中join的整理"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">3. sql&#x4E2D;join&#x7684;&#x6574;&#x7406;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4-聚合函数"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">4. &#x805A;&#x5408;&#x51FD;&#x6570;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#总结按资排辈"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">&#x603B;&#x7ED3;&#xFF08;&#x6309;&#x8D44;&#x6392;&#x8F88;&#xFF09;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-sql案例整理8句sql"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">5. sql&#x6848;&#x4F8B;&#x6574;&#x7406;(8&#x53E5;sql)</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#6-null字段的小知识点整理"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">6. NULL&#x5B57;&#x6BB5;&#x7684;&#x5C0F;&#x77E5;&#x8BC6;&#x70B9;&#x6574;&#x7406;</span></a></li></ol>
         
         </div>
       </aside>
