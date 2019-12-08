@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          数据仓库中的linux那些事儿 - 1900@ZhangXianyang | Blog
+          大数据实习篇---数据仓库中Hadoop生态圈的那些事儿 - 1900@ZhangXianyang | Blog
         
     </title>
 
-    <link rel="canonical" href="https://JasperZhangXY.github.io/article/大数据修行基础篇------Day02/">
+    <link rel="canonical" href="https://JasperZhangXY.github.io/article/大数据实习篇Hadoop------Day08/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -88,14 +88,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#linux" title="linux">linux</a>
+                              <a class="tag" href="/tags/#hadoop" title="hadoop">hadoop</a>
                             
                         </div>
-                        <h1>数据仓库中的linux那些事儿</h1>
-                        <h2 class="subheading">linux的基操中有趣的点。</h2>
+                        <h1>大数据实习篇---数据仓库中Hadoop生态圈的那些事儿</h1>
+                        <h2 class="subheading">Hadoop的玩法和他的朋友圈。</h2>
                         <span class="meta">
                             Posted by ZhangXianyang on
-                            2018-07-12
+                            2018-07-24
                         </span>
                     </div>
                 
@@ -212,43 +212,51 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="1echo-打印">1.echo 打印</h2>
-<p>echo打印</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]# echo "www.ruozedata.com"</span><br><span class="line">www.ruozedata.com</span><br></pre></td></tr></table></figure>
-<p>环境变量的名称  $PATH(Important)</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]# echo $PATH //K=V $K 1)K=V中不能有空格 2)用$符号调用K</span><br><span class="line">/usr/java/jdk1.8.0_121/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin</span><br></pre></td></tr></table></figure>
-<h2 id="2环境变量">2.环境变量</h2>
-<p>全局：/etc/profile<br>
-个人：/.bash_profile   /.bashrc<br>
-生效文件：source XXX</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]# mkdir -p /usr/java</span><br><span class="line">[root@hadoop001 ~]# cd /usr/java</span><br><span class="line">[root@hadoop001 java]# rz //回车 上传 jdk压缩包</span><br></pre></td></tr></table></figure>
-<p>安装unzip命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 java]# yum install -y unzip</span><br><span class="line">[root@hadoop001 java]# chown -R root:root /usr/java/*</span><br></pre></td></tr></table></figure>
-<p>解压：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 java]# tar -xzvf xxx.tar.gz</span><br></pre></td></tr></table></figure>
-<p>tips:<br>
-==jdk以后配置基本上都是配置在/usr/java这个目录中的==<br>
-==个人环境配置的时候一般配置在.bashrc这个文件中==</p>
-<h2 id="3which的理解">3.which的理解</h2>
-<p>在每一次安装完程序或者配置完变量后，最好习惯使用which查看以下，方便排查潜在问题</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]# which ls</span><br><span class="line">[root@hadoop001 ~]# which java</span><br></pre></td></tr></table></figure>
-<h2 id="4别名">4.别名</h2>
-<p>简化操作，节省时间<br>
-(1)当前session生效的别名</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]# alias  //查看所有的别名</span><br><span class="line">[root@hadoop001 ~]# alias czxy='cd /root/ZXY'</span><br></pre></td></tr></table></figure>
-<p>(2)永久配置别名，配置在全局：/etc/profile，个人：/.bash_profile   /.bashrc中</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]# vi .bashrc</span><br><span class="line"><span class="meta">#</span>.bashrc</span><br><span class="line"><span class="meta">#</span>User specific aliases and functions</span><br><span class="line">alias rm='rm -i'</span><br><span class="line">...</span><br><span class="line"><span class="meta">#</span>env</span><br><span class="line">alias c='cd /root/ZXY'</span><br><span class="line">[root@hadoop001 ~]# source .bashrc</span><br><span class="line">[root@hadoop001 ~]# c</span><br><span class="line">[root@hadoop001 ZXY]#</span><br></pre></td></tr></table></figure>
-<h2 id="5删除">5.删除</h2>
-<p>==rm -rf 是高危命令<br>
-发生场景：不小心将K的值重置了<br>
-K=’/home/hadoop’<br>
-K=’'<br>
-rm  -rf  $K/* 删库==</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]# rm -f zxy.log  //直接删除文件</span><br><span class="line">[root@hadoop001 ~]# rm -rf ZXY  //直接删除文件夹</span><br></pre></td></tr></table></figure>
-<h2 id="6history的应用场景">6.history的应用场景</h2>
-<p>history命令是用来查询记录的<br>
-数据没了，东西没了可以使用history来进行查看，查看是什么操作导致的这个问题</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 ~]# history</span><br><span class="line">      1 history</span><br><span class="line">      2 ll</span><br><span class="line">      3 c</span><br><span class="line">      4 which</span><br><span class="line">[root@hadoop001 ~]# ！2 //执行历史指定记录</span><br></pre></td></tr></table></figure>
+                <h2 id="1hadoop的安装及相应参数配置">1.hadoop的安装及相应参数配置</h2>
+<p><a href="http://archive.cloudera.com/cdh5/cdh/5/hadoop-2.6.0-cdh5.16.2/hadoop-project-dist/hadoop-common/SingleCluster.html" target="_blank" rel="noopener">hadoop参数配置1</a><br>
+<a href="http://archive.cloudera.com/cdh5/cdh/5/hadoop-2.6.0-cdh5.7.0/hadoop-project-dist/hadoop-common/ClusterSetup.html" target="_blank" rel="noopener">hadoop参数配置2</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[hadoop@hadoop001 ~]$ mkdir app software sourcecode log tmp data lib</span><br><span class="line">[hadoop@hadoop001 ~]$ ll</span><br><span class="line">total 0</span><br><span class="line">drwxrwxr-x 2 hadoop hadoop 6 Nov 27 21:32 app        #解压的文件夹  软连接</span><br><span class="line">drwxrwxr-x 2 hadoop hadoop 6 Nov 27 21:32 data       #数据</span><br><span class="line">drwxrwxr-x 2 hadoop hadoop 6 Nov 27 21:32 lib        #第三方的jar</span><br><span class="line">drwxrwxr-x 2 hadoop hadoop 6 Nov 27 21:32 log        #日志文件夹</span><br><span class="line">drwxrwxr-x 2 hadoop hadoop 6 Nov 27 21:32 software   #压缩包</span><br><span class="line">drwxrwxr-x 2 hadoop hadoop 6 Nov 27 21:32 sourcecode #源代码编译</span><br><span class="line">drwxrwxr-x 2 hadoop hadoop 6 Nov 27 21:32 tmp      #临时文件夹 ？？？/tmp</span><br></pre></td></tr></table></figure>
+<h2 id="2hadoop-fs常规命令">2.hadoop fs常规命令</h2>
+<pre><code>hadoop fs -mkdir  //创建文件夹
+hadoop fs -put    //上传文件
+hadoop fs -get    //下载文件
+hadoop fs -cat    //查看相应文件
+hadoop fs -rm 	  //删除相应的文件夹
+hadoop fs -ls     //查看存在的文件
+</code></pre>
+<h2 id="3整理-jdk-ssh-hosts文件">3.整理 jdk、ssh、hosts文件</h2>
+<h3 id="31-jdk环境变量的配置">3.1 jdk环境变量的配置</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 java]# vi /etc/profile</span><br><span class="line"><span class="meta">#</span><span class="bash">env</span></span><br><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_45</span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH</span><br><span class="line"></span><br><span class="line">[root@hadoop001 java]# source /etc/profile</span><br><span class="line">[root@hadoop001 java]# which java</span><br><span class="line">/usr/java/jdk1.8.0_45/bin/java</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">JAVA_HOME 显示配置:</span></span><br><span class="line"></span><br><span class="line">[hadoop@hadoop001 hadoop]$ vi hadoop-env.sh</span><br><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_45</span><br><span class="line">[root@hadoop001 java]# cat /etc/hosts</span><br><span class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1  localhost localhost.localdomain localhost6localhost6.localdomain6</span><br><span class="line"></span><br><span class="line">192.168.137.130 hadoop001</span><br></pre></td></tr></table></figure>
+<h3 id="32-ssh无密码信任关系的配置">3.2 ssh无密码信任关系的配置</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[hadoop@hadoop001 ~] ssh-keygen  //后面一直回车即可</span><br><span class="line">[hadoop@hadoop001 ~] cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</span><br><span class="line"><span class="meta">#</span><span class="bash"> 下面这一步是最重要的，牢记</span></span><br><span class="line">[hadoop@hadoop001 ~] chmod 0600 ~/.ssh/authorized_keys</span><br><span class="line">[ssh故障解决案例](http://blog.itpub.net/30089851/viewspace-2127102/)</span><br><span class="line">[ssh实现多台通信](http://blog.itpub.net/30089851/viewspace-1992210/)</span><br></pre></td></tr></table></figure>
+<h3 id="33-hadoop环境变量的配置">3.3 hadoop环境变量的配置</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[hadoop@hadoop001 ~]$ vi /etc/hadoop/core-site.xml</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;hdfs://ruozedata001:9000&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br><span class="line">[hadoop@hadoop001 ~]$vi /etc/hadoop/hdfs-site.xml</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br><span class="line">[hadoop@hadoop001 ~]$ vi .bashrc</span><br><span class="line"><span class="meta">#</span><span class="bash">.bashrc</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">Source global definitions</span></span><br><span class="line">if [  -f /etc/bashrc  ]; then</span><br><span class="line">        . /etc/bashrc</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">Uncomment the following line <span class="keyword">if</span> you don<span class="string">'t like systemctl'</span>s auto-paging feature:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">export</span> SYSTEMD_PAGER=</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">export HADOOP_HOME=/home/hadoop/app/hadoop</span><br><span class="line">export PATH=$&#123;HADOOP_HOME&#125;/bin:$&#123;HADOOP_HOME&#125;/sbin:$PATH</span><br><span class="line"></span><br><span class="line">[hadoop@hadoop001 ~]$ source .bashrc</span><br><span class="line">[hadoop@hadoop001 ~]$ which hadoop</span><br><span class="line">~/app/hadoop/bin/hadoop</span><br></pre></td></tr></table></figure>
+<h3 id="34-nn-dn-snn的配置">3.4 NN、DN、SNN的配置</h3>
+<pre><code>1.NN：fs.defaultFS控制的
+2.DN:  slaves文件
+3.SNN: 
+&lt;property&gt;
+    	&lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;
+    	&lt;value&gt;ruozedata001:50090&lt;/value&gt;
+	&lt;/property&gt;
+ &lt;property&gt;
+   	 &lt;name&gt;dfs.namenode.secondary.https-address&lt;/name&gt;
+   	 &lt;value&gt;ruozedata001:50091&lt;/value&gt;
+	&lt;/property&gt;
+4.
+&lt;configuration&gt;
+  &lt;property&gt;
+    	&lt;name&gt;fs.defaultFS&lt;/name&gt;
+   	 &lt;value&gt;hdfs://ruozedata001:9000&lt;/value&gt;
+	&lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<h3 id="35-格式化以及启动">3.5 格式化以及启动</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[hadoop@hadoop001 ~]$ hdfs namenode -format</span><br><span class="line">[hadoop@hadoop001 ~]$ start-dfs.sh</span><br></pre></td></tr></table></figure>
+<p><strong><em>==易踩坑点:==</em></strong><br>
+如果以后下面的ssh密码进行了修改，要同时来这里修改改过后的密码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[hadoop@hadoop001 .ssh]$ cat known_hosts</span><br><span class="line">hadoop001,192.168.137.130 ecdsa-sha2-nistp256 AAAAE2VjZHNhL</span><br><span class="line">XNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBG9N5IGRTqwqGGHZcyNJ2i7lG54isK19GMq+Zw3VDIr64dS2sqoZ79n+8Ibz8ZJsU1aNiaJJTzYUvuxZv5W4iHQ=</span><br><span class="line">localhost ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyN</span><br><span class="line">TYAAAAIbmlzdHAyNTYAAABBBG9N5IGRTqwqGGHZcyNJ2i7lG54isK19GMq+Zw3VDIr64dS2sqoZ79n+8Ibz8ZJsU1aNiaJJTzYUvuxZv5W4iHQ=</span><br><span class="line">0.0.0.0 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNlz</span><br><span class="line">yNTYAAAAIbmlzdHAyNTYAAABBBG9N5IGRTqwqGGHZcyNJ2i7lG54isK19GMq+Zw3VDIr64dS2sqoZ79n+8Ibz8ZJsU1aNiaJJTzYUvuxZv5W4iHQ=</span><br></pre></td></tr></table></figure>
+<p>大数据组件基本都是主从架构 hdfs  ==hbase—读写请求不经过 master进程==</p>
 
                 
 
@@ -257,12 +265,12 @@ rm  -rf  $K/* 删库==</p>
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/article/大数据修行基础篇------Day03/" data-toggle="tooltip" data-placement="top" title="数据仓库中的linux那些事儿">&larr; Previous Post</a>
+                            <a href="/article/大数据实习篇Hadoop------Day09/" data-toggle="tooltip" data-placement="top" title="大数据实习篇---数据仓库中Hadoop生态圈的那些事儿">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/article/大数据修行基础篇------Day01/" data-toggle="tooltip" data-placement="top" title="数据仓库中的linux那些事儿">Next Post &rarr;</a>
+                            <a href="/article/大数据实习篇MySQL------Day07/" data-toggle="tooltip" data-placement="top" title="大数据实习篇---数据仓库中mysql的那些事儿">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -312,7 +320,7 @@ rm  -rf  $K/* 删库==</p>
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1echo-打印"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1.echo &#x6253;&#x5370;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2环境变量"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2.&#x73AF;&#x5883;&#x53D8;&#x91CF;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3which的理解"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">3.which&#x7684;&#x7406;&#x89E3;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4别名"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">4.&#x522B;&#x540D;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5删除"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">5.&#x5220;&#x9664;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#6history的应用场景"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">6.history&#x7684;&#x5E94;&#x7528;&#x573A;&#x666F;</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1hadoop的安装及相应参数配置"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1.hadoop&#x7684;&#x5B89;&#x88C5;&#x53CA;&#x76F8;&#x5E94;&#x53C2;&#x6570;&#x914D;&#x7F6E;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2hadoop-fs常规命令"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2.hadoop fs&#x5E38;&#x89C4;&#x547D;&#x4EE4;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3整理-jdk-ssh-hosts文件"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">3.&#x6574;&#x7406; jdk&#x3001;ssh&#x3001;hosts&#x6587;&#x4EF6;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#31-jdk环境变量的配置"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">3.1 jdk&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x7684;&#x914D;&#x7F6E;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#32-ssh无密码信任关系的配置"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">3.2 ssh&#x65E0;&#x5BC6;&#x7801;&#x4FE1;&#x4EFB;&#x5173;&#x7CFB;&#x7684;&#x914D;&#x7F6E;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#33-hadoop环境变量的配置"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">3.3 hadoop&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x7684;&#x914D;&#x7F6E;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#34-nn-dn-snn的配置"><span class="toc-nav-number">3.4.</span> <span class="toc-nav-text">3.4 NN&#x3001;DN&#x3001;SNN&#x7684;&#x914D;&#x7F6E;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#35-格式化以及启动"><span class="toc-nav-number">3.5.</span> <span class="toc-nav-text">3.5 &#x683C;&#x5F0F;&#x5316;&#x4EE5;&#x53CA;&#x542F;&#x52A8;</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -332,7 +340,7 @@ rm  -rf  $K/* 删库==</p>
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#linux" title="linux">linux</a>
+                          <a class="tag" href="/tags/#hadoop" title="hadoop">hadoop</a>
                         
                     </div>
                 </section>

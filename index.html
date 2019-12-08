@@ -141,14 +141,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -208,6 +208,98 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/article/大数据实习篇Hadoop------Day10/">
+        <h2 class="post-title">
+                                 
+            大数据实习篇---数据仓库中Hadoop生态圈的那些事儿
+        </h2>
+        <h3 class="post-subtitle">
+            Hadoop的玩法和他的朋友圈。
+        </h3>
+        <div class="post-content-preview">
+            1.怎样将HDFS的临时存储/tmp目录改到/home/hadoop/tmp目录下面？
+123456789#1.先创建相应的目标文件夹[hadoop@hadoop001 ~]$ chmod -R 777 /home/hadoop/tmp#2.将相关文件移过去[hadoop@hadoop001 ~]$ mv /tmp/hadoop-hadoop/dfs /home/hadoop/tmp/#3.......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by ZhangXianyang on
+            2018-07-28
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#hadoop" title="hadoop">hadoop</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/大数据实习篇Hadoop------Day09/">
+        <h2 class="post-title">
+                                 
+            大数据实习篇---数据仓库中Hadoop生态圈的那些事儿
+        </h2>
+        <h3 class="post-subtitle">
+            Hadoop的玩法和他的朋友圈。
+        </h3>
+        <div class="post-content-preview">
+            1.yarn相应参数配置
+1234567891011121314151617181920[hadoop@hadoop001 ~]# vi /etc/hadoop/mapred-site.xml&lt;configuration&gt;    &lt;property&gt;        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;   ......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by ZhangXianyang on
+            2018-07-26
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#hadoop" title="hadoop">hadoop</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/大数据实习篇Hadoop------Day08/">
+        <h2 class="post-title">
+                                 
+            大数据实习篇---数据仓库中Hadoop生态圈的那些事儿
+        </h2>
+        <h3 class="post-subtitle">
+            Hadoop的玩法和他的朋友圈。
+        </h3>
+        <div class="post-content-preview">
+            1.hadoop的安装及相应参数配置
+hadoop参数配置1
+hadoop参数配置2
+12345678910[hadoop@hadoop001 ~]$ mkdir app software sourcecode log tmp data lib[hadoop@hadoop001 ~]$ lltotal 0drwxrwxr-x 2 hadoop hadoop 6 Nov 27 21:32 ap......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by ZhangXianyang on
+            2018-07-24
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#hadoop" title="hadoop">hadoop</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -487,6 +579,10 @@ tips: 慎用 echo “” &gt; zxyz.log 这种设置空文件的方式，这种�
             
         
             
+            <a href="/tags/#hadoop" title="hadoop" rel="3">hadoop</a>
+            
+        
+            
             <a href="/tags/#MySQL" title="MySQL" rel="3">MySQL</a>
             
         
@@ -543,23 +639,23 @@ tips: 慎用 echo “” &gt; zxyz.log 这种设置空文件的方式，这种�
     <ul>
       
         <li>
+          <a href="/article/大数据实习篇Hadoop------Day10/">大数据实习篇---数据仓库中Hadoop生态圈的那些事儿</a>
+        </li>
+      
+        <li>
+          <a href="/article/大数据实习篇Hadoop------Day09/">大数据实习篇---数据仓库中Hadoop生态圈的那些事儿</a>
+        </li>
+      
+        <li>
+          <a href="/article/大数据实习篇Hadoop------Day08/">大数据实习篇---数据仓库中Hadoop生态圈的那些事儿</a>
+        </li>
+      
+        <li>
           <a href="/article/大数据实习篇MySQL------Day07/">大数据实习篇---数据仓库中mysql的那些事儿</a>
         </li>
       
         <li>
           <a href="/article/大数据实习篇MySQL------Day06/">大数据实习篇---数据仓库中mysql的那些事儿</a>
-        </li>
-      
-        <li>
-          <a href="/article/大数据实习篇MySQL------Day05/">大数据实习篇---数据仓库中mysql的那些事儿</a>
-        </li>
-      
-        <li>
-          <a href="/article/大数据修行基础篇------Day04/">数据仓库中的linux那些事儿</a>
-        </li>
-      
-        <li>
-          <a href="/article/大数据修行基础篇------Day03/">数据仓库中的linux那些事儿</a>
         </li>
       
     </ul>
@@ -582,7 +678,7 @@ tips: 慎用 echo “” &gt; zxyz.log 这种设置空文件的方式，这种�
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">10</span></li></ul>
     </div>
 
         <hr>
