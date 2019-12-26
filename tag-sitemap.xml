@@ -17,7 +17,21 @@
 
     <url>
         <loc>https://JasperZhangXY.github.io/tags/hadoop/</loc>
-        <lastmod>2019-12-26T13:25:15.120Z</lastmod>
+        <lastmod>2019-12-26T12:33:48.480Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://JasperZhangXY.github.io/tags/Hive/</loc>
+        <lastmod>2019-12-26T13:34:14.303Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://JasperZhangXY.github.io/tags/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/</loc>
+        <lastmod>2019-12-26T13:35:50.846Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
