@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          大数据实习篇---数据仓库中不得不说的Hive - 1900@ZhangXianyang | Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://JasperZhangXY.github.io/article/大数据实习篇Hadoop------Day15/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/article_header/article_header.png')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#hadoop" title="hadoop">hadoop</a>
+                            
+                        </div>
+                        <h1>大数据实习篇---数据仓库中不得不说的Hive</h1>
+                        <h2 class="subheading">Hive的玩法和他的朋友圈。</h2>
+                        <span class="meta">
+                            Posted by ZhangXianyang on
+                            2018-08-09
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1900@ZhangXianyangBlog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="1table-ddl">1.Table DDL</h2>
+<h3 id="11-sql处理第一步必须要有表的存在">1.1 SQL处理，第一步必须要有表的存在</h3>
+<p>CREATE EXTERNAL TABLE emp_external2(<br>
+empno int,<br>
+ename string,<br>
+job string,<br>
+mgr int,<br>
+hiredate string,<br>
+sal double,<br>
+comm double,<br>
+deptno int<br>
+) ROW FORMAT DELIMITED FIELDS TERMINATED BY ‘\t’ LOCATION ‘/ruozedata/hive_external_table/emp/’;</p>
+<p>LOAD DATA LOCAL INPATH ‘/home/hadoop/data/emp.txt’ into table emp;</p>
+<p>DML</p>
+<p>LOAD DATA LOCAL INPATH ‘filepath’ [OVERWRITE] INTO TABLE tablename [PARTITION (partcol1=val1, partcol2=val2 …)]</p>
+<p>local: “本地”  linux服务器  ruozedata001<br>
+无local：从HDFS</p>
+<h3 id="12-hive中有两种常见类型的表">1.2 Hive中有两种常见类型的表：</h3>
+<pre><code>内部表   MANAGED TABLE
+外部表   EXTERNAL TABLE
+</code></pre>
+<p>CREATE [TEMPORARY] [EXTERNAL] TABLE [IF NOT EXISTS] [db_name.]table_name    – (Note: TEMPORARY available in Hive 0.14.0 and later)<br>
+[(col_name data_type [column_constraint_specification] [COMMENT col_comment], … [constraint_specification])]<br>
+[COMMENT table_comment]<br>
+[PARTITIONED BY (col_name data_type [COMMENT col_comment], …)]<br>
+[CLUSTERED BY (col_name, col_name, …) [SORTED BY (col_name [ASC|DESC], …)] INTO num_buckets BUCKETS]<br>
+[SKEWED BY (col_name, col_name, …)                  – (Note: Available in Hive 0.10.0 and later)]<br>
+ON ((col_value, col_value, …), (col_value, col_value, …), …)<br>
+[STORED AS DIRECTORIES]<br>
+[<br>
+[ROW FORMAT row_format]<br>
+[STORED AS file_format]<br>
+| STORED BY ‘<a href="http://storage.handler.class.name" target="_blank" rel="noopener">storage.handler.class.name</a>’ [WITH SERDEPROPERTIES (…)]  – (Note: Available in Hive 0.6.0 and later)<br>
+]<br>
+[LOCATION hdfs_path]<br>
+[TBLPROPERTIES (property_name=property_value, …)]   – (Note: Available in Hive 0.6.0 and later)<br>
+[AS select_statement];   – (Note: Available in Hive 0.5.0 and later; not supported for external tables)</p>
+<p>CREATE TABLE emp2 LIKE emp;<br>
+CREATE TABLE emp3 as select * from emp;</p>
+<p>CREATE [TEMPORARY] [EXTERNAL] TABLE [IF NOT EXISTS] [db_name.]table_name<br>
+LIKE existing_table_or_view_name<br>
+[LOCATION hdfs_path];</p>
+<p>内部表删除时: HDFS + META 都被删除<br>
+外部表删除时: HDFS不删除  仅META被删除</p>
+<p>log_90121229<br>
+log_90121230  time 创建index</p>
+<p>如果不分区<br>
+log<br>
+	1229<br>
+	1230</p>
+<p>select … from log where day=’…’</p>
+<p>IO：磁盘IO  网络IO</p>
+<p>分区表  ： 分区其实对应的就是HDFS上的一个文件夹/目录<br>
+log<br>
+	day=90121229<br>
+		…  &lt;==<br>
+	day=90121230<br>
+		…</p>
+<p>select … from log where day='90121229’<br>
+IO的开销不是一个级别的</p>
+<p>Ticket  服务请求  Order</p>
+<h2 id="2分区">2.分区</h2>
+<p>create table order_partition(<br>
+order_no string,<br>
+event_time string<br>
+)<br>
+PARTITIONED BY (event_month string)<br>
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ‘\t’;</p>
+<p>分区列并不是一个“真正的”表字段，其实是HDFS上表对应的文件夹下的一个文件夹</p>
+<p>LOAD DATA LOCAL INPATH ‘/home/hadoop/data/order_created.txt’ INTO TABLE order_partition PARTITION (event_month=‘2014-05’);</p>
+<p>分区表加载数据一定要指定分区字段</p>
+<p>对于分区表操作，如果你的数据是写入HDFS<br>
+默认sql是查询不到的，<br>
+为什么？因为元数据里没有</p>
+<p>ALTER TABLE order_partition ADD IF NOT EXISTS PARTITION(event_month=‘2014-07’) ;</p>
+<p>单级分区  一层目录<br>
+三级分区  三层目录</p>
+<p>create table order_mulit_partition(<br>
+order_no string,<br>
+event_time string<br>
+)<br>
+PARTITIONED BY (event_month string, step string)<br>
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ‘\t’;</p>
+<p>LOAD DATA LOCAL INPATH ‘/home/hadoop/data/order_created.txt’ INTO TABLE order_mulit_partition PARTITION (event_month=‘2014-05’,step=‘1’);</p>
+<p>使用分区表时，加载数据一定要指定我们的所有分区字段</p>
+<p>把emp的数据加载到emp分区表中去，分区字段是deptno</p>
+<p>CREATE TABLE emp_partition(<br>
+empno int,<br>
+ename string,<br>
+job string,<br>
+mgr int,<br>
+hiredate string,<br>
+sal double,<br>
+comm double<br>
+)<br>
+PARTITIONED BY (deptno int)<br>
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ‘\t’;</p>
+<p>INSERT OVERWRITE TABLE emp_partition PARTITION (deptno=10) select empno,ename,job,mgr,hiredate,sal,comm   from emp where deptno=10;</p>
+<h2 id="21动态分区">2.1动态分区</h2>
+<p>CREATE TABLE emp_dynamic_partition(<br>
+empno int,<br>
+ename string,<br>
+job string,<br>
+mgr int,<br>
+hiredate string,<br>
+sal double,<br>
+comm double<br>
+)<br>
+PARTITIONED BY (deptno int)<br>
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ‘\t’;</p>
+<p>INSERT OVERWRITE TABLE emp_dynamic_partition PARTITION (deptno) select empno,ename,job,mgr,hiredate,sal,comm,deptno from emp;</p>
+<h2 id="3hive-dml">3.Hive DML</h2>
+<p>LOAD DATA LOCAL INPATH ‘/home/hadoop/data/order_created.txt’ [OVERWRITE] INTO TABLE order_mulit_partition PARTITION (event_month=‘2014-05’,step=‘1’);<br>
+LOAD DATA : 加载数据<br>
+LOCAL: “本地”  没有的话就HDFS<br>
+INPATH: 指定路径<br>
+OVERWRITE：数据覆盖  没有的话就是追加</p>
+<p>CTAS : create table … as select…<br>
+	表不能事先存在</p>
+<p>insert：<br>
+	表必须事先存在</p>
+<p>insert overwrite table emp4 select empno,job,ename,mgr,hiredate,sal,comm,deptno from emp;</p>
+<p>from emp insert into table emp4 select *;</p>
+<p>INSERT OVERWRITE DIRECTORY ‘/hivetmp’ ROW FORMAT DELIMITED FIELDS TERMINATED BY ‘\t’ SELECT empno,ename FROM emp;</p>
+<p>Sqoop 数据导入导出操作</p>
+<h2 id="4环境部署-ddl-dml">4.环境部署、DDL、DML</h2>
+<p>使用Hive，必然是写SQL</p>
+<p>SELECT [ALL | DISTINCT] select_expr, select_expr, …<br>
+FROM table_reference<br>
+[WHERE where_condition]<br>
+[GROUP BY col_list]<br>
+[ORDER BY col_list]<br>
+[CLUSTER BY col_list<br>
+| [DISTRIBUTE BY col_list] [SORT BY col_list]<br>
+]<br>
+[LIMIT [offset,] rows]</p>
+<p>null NULL “” &quot; &quot;</p>
+<h2 id="5聚合-多进一出">5.聚合： 多进一出</h2>
+<pre><code>max 
+min
+count
+sum
+avg
+</code></pre>
+<p>group by</p>
+<p>求每个部门的平均工资 大于2000</p>
+<p>select deptno,avg(sal) avg_sal from emp group by deptno having avg_sal&gt;2000;</p>
+<p>select中出现的字段，如果没有出现在group by中，必须出现在聚合函数中</p>
+<p>where和having的区别</p>
+<p>Fetch</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/大数据实习篇Hadoop------Day16/" data-toggle="tooltip" data-placement="top" title="大数据实习篇---数据仓库">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/大数据实习篇Hadoop------Day14/" data-toggle="tooltip" data-placement="top" title="大数据实习篇---数据仓库中不得不说的Hive">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1table-ddl"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1.Table DDL</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#11-sql处理第一步必须要有表的存在"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">1.1 SQL&#x5904;&#x7406;&#xFF0C;&#x7B2C;&#x4E00;&#x6B65;&#x5FC5;&#x987B;&#x8981;&#x6709;&#x8868;&#x7684;&#x5B58;&#x5728;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#12-hive中有两种常见类型的表"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">1.2 Hive&#x4E2D;&#x6709;&#x4E24;&#x79CD;&#x5E38;&#x89C1;&#x7C7B;&#x578B;&#x7684;&#x8868;&#xFF1A;</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2分区"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2.&#x5206;&#x533A;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#21动态分区"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">2.1&#x52A8;&#x6001;&#x5206;&#x533A;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3hive-dml"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">3.Hive DML</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4环境部署-ddl-dml"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">4.&#x73AF;&#x5883;&#x90E8;&#x7F72;&#x3001;DDL&#x3001;DML</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5聚合-多进一出"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">5.&#x805A;&#x5408;&#xFF1A; &#x591A;&#x8FDB;&#x4E00;&#x51FA;</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#hadoop" title="hadoop">hadoop</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://JasperZhangXY.github.io/" target="_blank">一个栗子</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'rz'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+        })  
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/JasperZhangXY">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ZhangXianyang 2019 
+                    By <a href="http://www.ruozedata.com">若泽数据，企业在职</a> | BigData
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=ruozedata&repo=Bigdata&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://JasperZhangXY.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'xxx';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://JasperZhangXY.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

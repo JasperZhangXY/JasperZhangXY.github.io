@@ -142,14 +142,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -271,7 +271,7 @@ dfs.namenode.checkpoint.period 3600s<br>
 <em>dfs.namenode.checkpoint.txns 1000000</em><br>
 demo：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.namenode.checkpoint.txns &lt;/name&gt;</span><br><span class="line">        &lt;value&gt;1000000&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="./images/HDFS_Architecture.png" alt="HDFS框架图"></p>
+<p><img src="/img/HDFS_Architecture.jpg" alt="HDFS框架图"></p>
 <h2 id="5整理snn流程">5.整理SNN流程</h2>
 <p>1 2 3 4  全备份 fsimage1<br>
 5 6      edit1<br>
@@ -300,20 +300,24 @@ fsimage_0000000000000000324<br>
 fsimage_0000000000000000324.md5</p>
 <p>fsimage_0000000000000000307 + edits_0000000000000000308-0000000000000000324<br>
 ==&gt;fsimage_0000000000000000324<br>
-==<strong>SNN流程图：</strong>==<br>
-<img src="./images/xx.jpg" alt="SNN流程图"></p>
-<pre><code>1.roll edit
-2.传输 fsimage+editsSNN
-3.merge  整合
-4.传输   fsimage.ckpt to nn
-5.回滚   fsimage.ckpt==》fsimage
-  		 edit.new==&gt;  edit</code></pre>
+<strong>SNN流程图：</strong><br>
+<img src="/img/xx.jpg" alt="SNN流程图"><br>
+1.roll edit<br>
+2.传输 fsimage+editsSNN<br>
+3.merge  整合<br>
+4.传输   fsimage.ckpt to nn<br>
+5.回滚   fsimage.ckpt==》fsimage<br>
+		 edit.new==&gt;  edit</p>
 
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/大数据实习篇Hadoop------Day11/" data-toggle="tooltip" data-placement="top" title="大数据实习篇---数据仓库中Hadoop生态圈的那些事儿">&larr; Previous Post</a>
+                        </li>
                     
                     
                         <li class="next">

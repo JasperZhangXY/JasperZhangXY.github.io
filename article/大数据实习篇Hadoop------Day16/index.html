@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          大数据实习篇---数据仓库 - 1900@ZhangXianyang | Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://JasperZhangXY.github.io/article/大数据实习篇Hadoop------Day16/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/article_header/article_header.png')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#hadoop" title="hadoop">hadoop</a>
+                            
+                        </div>
+                        <h1>大数据实习篇---数据仓库</h1>
+                        <h2 class="subheading">数据仓库实习项目开篇</h2>
+                        <span class="meta">
+                            Posted by ZhangXianyang on
+                            2018-08-11
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1900@ZhangXianyangBlog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="1erp系统">1.ERP系统</h2>
+<p>制造行业 电商行业<br>
+<a href="http://ruozedata:8080" target="_blank" rel="noopener">http://ruozedata:8080</a><br>
+【<br>
+	erp在线: <a href="http://114.67.73.169:8888/" target="_blank" rel="noopener">http://114.67.73.169:8888/</a>    jepson/123456<br>
+	mysql数据库 :  114.67.73.169:3306  ruozedata/ruozedata<br>
+】</p>
+<h3 id="11系统管理-用户角色权限页面一般使用-按钮最小细粒度-很成熟的">1.1系统管理: 用户+角色+权限(页面（一般使用） 按钮（最小细粒度）)  很成熟的</h3>
+<pre><code>日志管理: 用户 IP 操作时间 --》 pv uv指标
+商品属性: SKU
+</code></pre>
+<h3 id="12基础资料">1.2基础资料:</h3>
+<pre><code>供应商 进 +1
+仓库  存  动态变化
+销售(商家) 销-1  批+个
+
+进销存 
+
+结算账户 钱
+</code></pre>
+<h3 id="13商品管理-sku">1.3商品管理: SKU</h3>
+<pre><code> 商品类别 树 
+        第一类别   第二类别 SKUNAME
+ 	新鲜水果   热销水果  苹果
+	新鲜水果   热带水果  芒果
+
+ 商品信息  安全存量 警示阈值
+</code></pre>
+<h3 id="14采购管理">1.4采购管理:</h3>
+<pre><code>先计划 审核  ：采购订单
+再发生:        采购入库+===》仓库有货 3450
+
+思考东西: 为什么做电商的，核心城市布局 仓库呢，为什么全中国就可以1个啊？
+下单地址 上海的，下单地址进行分单--》分到哪个仓库去出货  节省企业费用 提高用户体验度 24达
+
+各个仓库+进货数量：要智能算法的 做推荐的 自己历史数据+爬虫+购买电商数据
+</code></pre>
+<h3 id="15仓库管理">1.5仓库管理:</h3>
+<pre><code>商品信息 查看该商品全球仓库的所有的数量
+入库明细
+库存状况
+    其他入库  比如在货物的现场  设置入库地点  可以跳过采购流程，直接到仓库--》直接销售出去
+          生命力 
+	  产地仓-阳澄湖
+	 
+
+    其他出库  
+</code></pre>
+<h3 id="16销售管理-销售订单-计划">1.6销售管理: 销售订单 计划</h3>
+<pre><code>  销售出库 实际发生的 会校验 仓库+SKU的存库量
+</code></pre>
+<h3 id="17零售管理-零售出库">1.7零售管理:  零售出库</h3>
+<pre><code>       零售退货
+</code></pre>
+<h2 id="2仓库盘点t-备份表-冻结状态">2.仓库盘点T  备份表 冻结状态</h2>
+<p>INSERT INTO BAK<br>
+select *,‘2019-12-21’ from t<br>
+释放锁</p>
+<p>老母鸡 库存100 2019-12-21<br>
+老母鸡 库存90 2019-12-22<br>
+老母鸡 库存1000 2019-12-23</p>
+<p><a href="https://www.50yc.com/information/guanli-jiqiao/15191" target="_blank" rel="noopener">https://www.50yc.com/information/guanli-jiqiao/15191</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/大数据实习篇Hadoop------Day18/" data-toggle="tooltip" data-placement="top" title="大数据实习篇---数据仓库">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/大数据实习篇Hadoop------Day15/" data-toggle="tooltip" data-placement="top" title="大数据实习篇---数据仓库中不得不说的Hive">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1erp系统"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1.ERP&#x7CFB;&#x7EDF;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#11系统管理-用户角色权限页面一般使用-按钮最小细粒度-很成熟的"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">1.1&#x7CFB;&#x7EDF;&#x7BA1;&#x7406;: &#x7528;&#x6237;+&#x89D2;&#x8272;+&#x6743;&#x9650;(&#x9875;&#x9762;&#xFF08;&#x4E00;&#x822C;&#x4F7F;&#x7528;&#xFF09; &#x6309;&#x94AE;&#xFF08;&#x6700;&#x5C0F;&#x7EC6;&#x7C92;&#x5EA6;&#xFF09;)  &#x5F88;&#x6210;&#x719F;&#x7684;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#12基础资料"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">1.2&#x57FA;&#x7840;&#x8D44;&#x6599;:</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#13商品管理-sku"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">1.3&#x5546;&#x54C1;&#x7BA1;&#x7406;: SKU</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#14采购管理"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">1.4&#x91C7;&#x8D2D;&#x7BA1;&#x7406;:</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#15仓库管理"><span class="toc-nav-number">1.5.</span> <span class="toc-nav-text">1.5&#x4ED3;&#x5E93;&#x7BA1;&#x7406;:</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#16销售管理-销售订单-计划"><span class="toc-nav-number">1.6.</span> <span class="toc-nav-text">1.6&#x9500;&#x552E;&#x7BA1;&#x7406;: &#x9500;&#x552E;&#x8BA2;&#x5355; &#x8BA1;&#x5212;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#17零售管理-零售出库"><span class="toc-nav-number">1.7.</span> <span class="toc-nav-text">1.7&#x96F6;&#x552E;&#x7BA1;&#x7406;:  &#x96F6;&#x552E;&#x51FA;&#x5E93;</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2仓库盘点t-备份表-冻结状态"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2.&#x4ED3;&#x5E93;&#x76D8;&#x70B9;T  &#x5907;&#x4EFD;&#x8868; &#x51BB;&#x7ED3;&#x72B6;&#x6001;</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#hadoop" title="hadoop">hadoop</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://JasperZhangXY.github.io/" target="_blank">一个栗子</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'rz'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+        })  
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/JasperZhangXY">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ZhangXianyang 2019 
+                    By <a href="http://www.ruozedata.com">若泽数据，企业在职</a> | BigData
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=ruozedata&repo=Bigdata&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://JasperZhangXY.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'xxx';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://JasperZhangXY.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          大数据实习篇---数据仓库中不得不说的Hive - 1900@ZhangXianyang | Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://JasperZhangXY.github.io/article/大数据实习篇Hadoop------Day14/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/article_header/article_header.png')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#hadoop" title="hadoop">hadoop</a>
+                            
+                        </div>
+                        <h1>大数据实习篇---数据仓库中不得不说的Hive</h1>
+                        <h2 class="subheading">Hive的玩法和他的朋友圈。</h2>
+                        <span class="meta">
+                            Posted by ZhangXianyang on
+                            2018-08-06
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">1900@ZhangXianyangBlog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="1再说hadoop">1.再说Hadoop</h2>
+<pre><code>狭义
+	Hadoop是最重要最基础的一个部分
+广义
+	Hadoop生态圈
+		Hadoop、Hive、Sqoop、HBase....
+		
+处理如下业务：join/group by
+</code></pre>
+<h2 id="2基于hadoop处理大数据存在的弊端">2.基于Hadoop处理大数据存在的弊端：</h2>
+<pre><code>面向MapReduce麻烦
+RDBMS的需求
+
+==&gt; Hive的产生背景
+MySQL/Oracle...   统计
+	先创建表：表名、列名、列类型....  schema(元数据/metadata) 
+	然后再使用SQL进行相应的业务统计分析
+
+HDFS上的文件：文本格式
+	按照某个分隔符(\t)：第一列是什么、第二列是什么
+
+元数据  vs  源数据
+	源数据：HDFS上的文件
+	元数据：是描述数据的数据
+</code></pre>
+<h2 id="3hive概述">3.Hive概述</h2>
+<pre><code>hive.apache.org
+	
+The Apache Hive ™ data warehouse software facilitates 
+reading, 
+writing, 
+managing large datasets residing 
+in distributed storage (HDFS/S3)
+using SQL	
+
+A command line tool 
+and JDBC driver are provided to connect users to Hive	
+	
+Facebook开源，用于解决海量结构化的日志数据统计问题
+构建在Hadoop（HDFS/MapReduce/YARN）之上的数据仓库
+	Hive的数据是存放在HDFS之上
+	Hive底层执行引擎：MapReduce/Tez/Spark
+		只需要通过一个参数就能够切换底层的执行引擎
+	Hive作业提交到YARN上运行
+提供了HQL查询语言
+	和SQL类似，但不完全相同
+	所谓的大数据“云化”：是一个很大项目
+适用于离线处理/批处理
+HDFS上的数据：文本   压缩、列式存储
+
+SQL on Hadoop：Hive/Presto/Impala/Spark SQL...
+</code></pre>
+<h3 id="31-hive的优缺点">3.1 Hive的优缺点</h3>
+<pre><code>优点：SQL
+缺点：
+	如果底层引擎是基于MR，性能必然不高
+</code></pre>
+<h3 id="32-hive架构">3.2 Hive架构</h3>
+<pre><code>用户接口层：黑窗口、JDBC
+Driver/驱动器
+	SQL解析：SQL ==&gt; AST(antlr)
+	查询优化：逻辑/物理执行计划
+	UDF/SerDes：
+	Execution：执行
+元数据：表名、所属数据库、列（名/类型/index）、表类型、表数据所在目录	
+	
+	id,username,password,age
+	
+Hive的数据是存放在HDFS之上
+Hive的数据分为两部分：数据 + 元数据
+</code></pre>
+<h2 id="4hive和rdbms的对比">4.Hive和RDBMS的对比</h2>
+<pre><code>相同点
+	SQL
+	事务
+	insert/update/delete   Hive-0.14才支持
+		针对Hive数据仓库，写比较少的，批次加载数据到Hive然后进行统计分析
+不同点
+	体量/集群规模
+	延迟/时性
+</code></pre>
+<h2 id="5hive部署">5.Hive部署</h2>
+<pre><code>https://cwiki.apache.org/confluence/display/Hive/GettingStarted
+
+前置
+	JDK8
+	Hadoop2.x
+	Linux
+	MySQL
+	
+CDH-5.16.2
+	wget http://archive.cloudera.com/cdh5/cdh/5/hive-1.1.0-cdh5.16.2.tar.gz
+	
+安装
+	解压：tar -zxvf hive-1.1.0-cdh5.16.2.tar.gz -C ~/app/
+	配置环境变量：source
+		export HIVE_HOME=/home/hadoop/app/hive-1.1.0-cdh5.16.2
+		export PATH=$HIVE_HOME/bin:$PATH
+	$HIVE_HOME下目录说明
+		bin：脚本
+		lib：依赖包
+		conf：配置文件
+	$HIVE_HOME/conf/hive-site.xml
+</code></pre>
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+	<property>
+	  <name>javax.jdo.option.ConnectionURL</name>
+	  <value>jdbc:mysql://ruozedata001:3306/ruozedata_hive?createDatabaseIfNotExist=true</value>
+	</property>
+<pre><code>&lt;property&gt;
+  &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;
+  &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+  &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;
+  &lt;value&gt;root&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+  &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;
+  &lt;value&gt;ruozedata&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+	&lt;name&gt;hive.cli.print.current.db&lt;/name&gt;
+	&lt;value&gt;true&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+	&lt;name&gt;hive.cli.print.header&lt;/name&gt;
+	&lt;value&gt;true&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+</configuration>	
+<pre><code>	拷贝MySQL驱动包到$HIVE_HOME/lib/下
+	
+	!clear; 清屏命令
+	exit; 退出命令
+	use dbname; 切换到dbname所在数据库
+	show tables; 查看当前数据库下的所有表
+	创建表：create table stu(id int, name string, age int);
+	查看表结构：
+		desc stu;
+		desc extended stu;
+		desc formatted stu;
+	插入数据：insert into stu values(1,'pk',30);
+	查询数据：select * from stu;				
+</code></pre>
+<h2 id="6创建stu表默认存储在hdfs的目录是">6.创建stu表，默认存储在HDFS的目录是</h2>
+<pre><code>hdfs://ruozedata001:8020/user/hive/warehouse/stu 
+	hive.metastore.warehouse.dir：/user/hive/warehouse	
+	stu：表的名字
+表的完整路径是: ${hive.metastore.warehouse.dir}/tablename
+</code></pre>
+<h2 id="7hive的完整执行日志">7.Hive的完整执行日志：</h2>
+<pre><code>cd $HIVE_HOME
+cp hive-log4j.properties.template hive-log4j.properties
+	hive.log.dir=${java.io.tmpdir}/${user.name}
+	hive.log.file=hive.log
+	
+	${java.io.tmpdir}/${user.name}/${hive.log.file}
+	/tmp/hadoop/hive.log
+</code></pre>
+<h2 id="8hive配置属性">8.Hive配置属性</h2>
+<pre><code>全局：$HIVE_HOME/hive-site.xml中
+临时/当前session：仅对当前session生效
+	查看当前的属性：set key;
+	修改当前的属性：set key=value;
+	hive -hiveconf hive.cli.print.current.db=true
+</code></pre>
+<h2 id="9hive中交互式命令">9.Hive中交互式命令</h2>
+<pre><code>-e：不需要进入hive命令后，就可以跟上sql语句查询
+-f：执行指定文件（内容是SQL语句）
+</code></pre>
+<h2 id="10拓展基于hive的离线统计数据仓库">10.拓展：基于Hive的离线统计/数据仓库</h2>
+<pre><code>把SQL封装到shell脚本中去，使用hive -e &quot;query sql...&quot;
+定时调度：crontab 	
+</code></pre>
+<h2 id="11hive中的数据抽象">11.Hive中的数据抽象</h2>
+<pre><code>Hive中的表(stu)必须要归属于某个数据库(default)
+</code></pre>
+<h2 id="12database">12.Database</h2>
+<pre><code>包含了0到N张表
+每个db对应HDFS上的一个文件夹
+	default==&gt;/user/hive/warehouse
+</code></pre>
+<h3 id="121创建数据库">12.1创建数据库</h3>
+<p>CREATE (DATABASE|SCHEMA) [IF NOT EXISTS] database_name<br>
+[COMMENT database_comment]<br>
+[LOCATION hdfs_path]<br>
+[WITH DBPROPERTIES (property_name=property_value, …)];</p>
+<p>CREATE DATABASE IF NOT EXISTS ruozedata_hive;</p>
+<p>自己创建的Hive数据库的存放目录规则：<br>
+	${hive.metastore.warehouse.dir}/dbname.db<br>
+	/user/hive/warehouse/ruozedata_hive.db</p>
+<p>CREATE DATABASE IF NOT EXISTS ruozedata_hive2 LOCATION ‘/ruozedata/directory’	;</p>
+<p>CREATE DATABASE IF NOT EXISTS ruozedata_hive3 COMMENT ‘this is ruozedata database’ WITH DBPROPERTIES(‘creator’=‘pk’, ‘date’=‘9012-12-30’);</p>
+<h3 id="122删除数据库">12.2删除数据库</h3>
+<pre><code>DROP (DATABASE|SCHEMA) [IF EXISTS] database_name [RESTRICT|CASCADE];
+DROP DATABASE IF EXISTS ruozedata_hive2;
+
+CASCADE(了解即可，慎用)： one2many ==  1 db 对 多 table 
+</code></pre>
+<h3 id="123基本数据类型">12.3基本数据类型</h3>
+<pre><code>HDFS上的文件来说：string
+
+数值类型：int bigint float double  decimal
+字符串类型：string  90%
+布尔类型：boolean： true/false
+日期类型：date  timestamp ...
+</code></pre>
+<h3 id="124分隔符">12.4分隔符</h3>
+<pre><code>delimiter   code
+^A          \001  字段之间的分隔符
+\n          \n    记录分隔符
+^B          \002  ARRAY/STRUCT (Hive中的复杂数据类型)
+^C          \003  key/value of MAP (Hive中的复杂数据类型)
+</code></pre>
+<p>1,pk,30<br>
+1$$$$$pk$$$$$30</p>
+<p>create table stu2(id int, name string, age int) row format delimited fields terminated by ‘,’;<br>
+insert into stu2 values(1,‘pk’,30);<br>
+把/user/hive/warehouse/stu/000000_0下载到本地，查看数据的内容。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/大数据实习篇Hadoop------Day15/" data-toggle="tooltip" data-placement="top" title="大数据实习篇---数据仓库中不得不说的Hive">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/大数据实习篇Hadoop------Day13/" data-toggle="tooltip" data-placement="top" title="大数据实习篇---数据仓库中Hadoop生态圈的那些事儿">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1再说hadoop"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1.&#x518D;&#x8BF4;Hadoop</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2基于hadoop处理大数据存在的弊端"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2.&#x57FA;&#x4E8E;Hadoop&#x5904;&#x7406;&#x5927;&#x6570;&#x636E;&#x5B58;&#x5728;&#x7684;&#x5F0A;&#x7AEF;&#xFF1A;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3hive概述"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">3.Hive&#x6982;&#x8FF0;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#31-hive的优缺点"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">3.1 Hive&#x7684;&#x4F18;&#x7F3A;&#x70B9;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#32-hive架构"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">3.2 Hive&#x67B6;&#x6784;</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4hive和rdbms的对比"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">4.Hive&#x548C;RDBMS&#x7684;&#x5BF9;&#x6BD4;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5hive部署"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">5.Hive&#x90E8;&#x7F72;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#6创建stu表默认存储在hdfs的目录是"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">6.&#x521B;&#x5EFA;stu&#x8868;&#xFF0C;&#x9ED8;&#x8BA4;&#x5B58;&#x50A8;&#x5728;HDFS&#x7684;&#x76EE;&#x5F55;&#x662F;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#7hive的完整执行日志"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">7.Hive&#x7684;&#x5B8C;&#x6574;&#x6267;&#x884C;&#x65E5;&#x5FD7;&#xFF1A;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#8hive配置属性"><span class="toc-nav-number">8.</span> <span class="toc-nav-text">8.Hive&#x914D;&#x7F6E;&#x5C5E;&#x6027;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#9hive中交互式命令"><span class="toc-nav-number">9.</span> <span class="toc-nav-text">9.Hive&#x4E2D;&#x4EA4;&#x4E92;&#x5F0F;&#x547D;&#x4EE4;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#10拓展基于hive的离线统计数据仓库"><span class="toc-nav-number">10.</span> <span class="toc-nav-text">10.&#x62D3;&#x5C55;&#xFF1A;&#x57FA;&#x4E8E;Hive&#x7684;&#x79BB;&#x7EBF;&#x7EDF;&#x8BA1;/&#x6570;&#x636E;&#x4ED3;&#x5E93;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#11hive中的数据抽象"><span class="toc-nav-number">11.</span> <span class="toc-nav-text">11.Hive&#x4E2D;&#x7684;&#x6570;&#x636E;&#x62BD;&#x8C61;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#12database"><span class="toc-nav-number">12.</span> <span class="toc-nav-text">12.Database</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#121创建数据库"><span class="toc-nav-number">12.1.</span> <span class="toc-nav-text">12.1&#x521B;&#x5EFA;&#x6570;&#x636E;&#x5E93;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#122删除数据库"><span class="toc-nav-number">12.2.</span> <span class="toc-nav-text">12.2&#x5220;&#x9664;&#x6570;&#x636E;&#x5E93;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#123基本数据类型"><span class="toc-nav-number">12.3.</span> <span class="toc-nav-text">12.3&#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#124分隔符"><span class="toc-nav-number">12.4.</span> <span class="toc-nav-text">12.4&#x5206;&#x9694;&#x7B26;</span></a></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#hadoop" title="hadoop">hadoop</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://JasperZhangXY.github.io/" target="_blank">一个栗子</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'rz'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+        })  
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/JasperZhangXY">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ZhangXianyang 2019 
+                    By <a href="http://www.ruozedata.com">若泽数据，企业在职</a> | BigData
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=ruozedata&repo=Bigdata&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://JasperZhangXY.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'xxx';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://JasperZhangXY.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
